@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VPC Visual – Radha's gated housing society</title>
+  <meta name="description" content="An animated, beginner-friendly diagram that explains an AWS VPC step by step, using a gated housing society as the story.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Radha's Gated Housing Society</h1>
+    <p>An AWS VPC explained one step at a time, in plain language. No IT background needed.</p>
+  </header>
+
+  <div class="app">
+    <aside class="side" aria-label="Controls">
+      <nav class="steps" id="steps" aria-label="Diagram steps"></nav>
+
+      <div class="controls">
+        <button id="btn-auto" class="btn" type="button" aria-pressed="false">Auto-play</button>
+        <button id="btn-reset" class="btn" type="button">Reset</button>
+      </div>
+
+      <section class="legend" aria-labelledby="legend-h">
+        <h2 id="legend-h">What the moving things mean</h2>
+        <ul id="legend"></ul>
+      </section>
+    </aside>
+
+    <main class="main">
+      <div class="stage">
+        <svg id="diagram" class="diagram" viewBox="0 0 1100 620" role="img"
+             aria-label="Animated diagram of an AWS VPC drawn as a gated housing society"></svg>
+      </div>
+
+      <article class="caption" id="caption" aria-live="polite">
+        <h2 class="cap-title" id="cap-title"></h2>
+        <div class="cap-grid">
+          <section>
+            <h3>In plain words</h3>
+            <p id="cap-plain"></p>
+          </section>
+          <section>
+            <h3>Technical name</h3>
+            <p id="cap-tech"></p>
+          </section>
+          <section>
+            <h3>Watch the picture</h3>
+            <p id="cap-watch"></p>
+          </section>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <noscript><p class="noscript">This diagram needs JavaScript to draw itself. Please enable it and reload.</p></noscript>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

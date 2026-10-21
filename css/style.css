@@ -1,0 +1,293 @@
+/* ------------------------------------------------------------------
+   VPC Visual – styles
+   Colour code (diagram): blue = cloud/zones, teal = VPC, gold = public,
+   purple = private, red = security, green = office link.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* page (follows light / dark) */
+  --bg: #f6f4ee;
+  --panel: #ffffff;
+  --ink: #1d2433;
+  --muted: #566075;
+  --line: #e0ddd0;
+  --accent: #0b7a85;
+  --accent-ink: #ffffff;
+  --btn: #fbfaf6;
+  --btn-hover: #efece0;
+  --focus: #d9480f;
+  --shadow: 0 6px 24px rgba(20, 30, 60, 0.08);
+
+  /* diagram palette (same in both modes: the stage is always dark) */
+  --c-blue: #5aa9ff;
+  --c-teal: #2dd4bf;
+  --c-gold: #f5c04a;
+  --c-purple: #b18cff;
+  --c-red: #ff6b6b;
+  --c-green: #5be38a;
+  --c-sky: #9fd3ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1220;
+    --panel: #151c30;
+    --ink: #e8edf8;
+    --muted: #9ba7c5;
+    --line: #27314f;
+    --accent: #2dd4bf;
+    --accent-ink: #06222a;
+    --btn: #1a2340;
+    --btn-hover: #232f57;
+    --focus: #ffb454;
+    --shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---------- header ---------- */
+.top { padding: 18px 24px 4px; max-width: 1500px; margin: 0 auto; }
+.top h1 { margin: 0; font-size: clamp(1.35rem, 2.6vw, 2rem); letter-spacing: -0.01em; }
+.top p { margin: 4px 0 0; color: var(--muted); }
+
+/* ---------- layout ---------- */
+.app {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 20px;
+  padding: 14px 24px 36px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-self: start;
+  position: sticky;
+  top: 12px;
+  min-width: 0;
+}
+
+.main { min-width: 0; }
+
+/* ---------- step buttons ---------- */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  min-width: 0;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  column-gap: 10px;
+  align-items: center;
+  text-align: left;
+  font: inherit;
+  color: var(--ink);
+  background: var(--btn);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+.step:hover { background: var(--btn-hover); }
+
+.step .num {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.step .t { font-weight: 700; font-size: 0.95rem; line-height: 1.2; }
+.step .s { font-size: 0.8rem; color: var(--muted); line-height: 1.2; }
+
+.step.done .num { border-color: var(--accent); color: var(--accent); }
+.step[aria-current="step"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent) inset;
+}
+.step[aria-current="step"] .num {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ---------- controls ---------- */
+.controls { display: flex; gap: 8px; }
+.btn {
+  flex: 1;
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--btn);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+.btn:hover { background: var(--btn-hover); }
+.btn[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+/* ---------- legend ---------- */
+.legend {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.legend h2 { margin: 0 0 6px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.legend li { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; }
+.legend .em { width: 1.6em; text-align: center; font-size: 1.15rem; }
+.legend b { font-weight: 700; }
+
+/* ---------- stage (always a dark night sky) ---------- */
+.stage {
+  background: #0a1030;
+  border: 1px solid #1c2a5a;
+  border-radius: 16px;
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+}
+.stage svg {
+  display: block;
+  width: 100%;
+  min-width: 820px;
+  height: auto;
+}
+
+/* ---------- caption card ---------- */
+.caption {
+  margin-top: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px 18px 18px;
+  box-shadow: var(--shadow);
+}
+.cap-title { margin: 0 0 10px; font-size: 1.3rem; letter-spacing: -0.01em; }
+.cap-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.cap-grid h3 {
+  margin: 0 0 4px;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--accent);
+}
+.cap-grid p { margin: 0; }
+
+.noscript { padding: 16px 24px; }
+
+/* ---------- SVG parts ---------- */
+.k-blue   { --k: var(--c-blue); }
+.k-teal   { --k: var(--c-teal); }
+.k-gold   { --k: var(--c-gold); }
+.k-purple { --k: var(--c-purple); }
+.k-red    { --k: var(--c-red); }
+.k-green  { --k: var(--c-green); }
+.k-sky    { --k: var(--c-sky); }
+
+.box { fill: var(--k); fill-opacity: 0.14; stroke: var(--k); stroke-width: 1.5; }
+.box.region { fill-opacity: 0.07; }
+.box.solid  { fill-opacity: 0.26; }
+
+.t   { fill: #eaf1ff; }
+.sub { fill: #aebde3; }
+.tx-blue   { fill: var(--c-blue); }
+.tx-teal   { fill: var(--c-teal); }
+.tx-gold   { fill: var(--c-gold); }
+.tx-purple { fill: var(--c-purple); }
+.tx-red    { fill: var(--c-red); }
+.tx-green  { fill: var(--c-green); }
+.tx-sky    { fill: var(--c-sky); }
+
+.wire {
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 7 6;
+  animation: flow 1s linear infinite;
+  opacity: 0.9;
+}
+.wc-sky    { stroke: var(--c-sky); }
+.wc-violet { stroke: var(--c-purple); }
+.wc-teal   { stroke: var(--c-teal); }
+.wc-gold   { stroke: var(--c-gold); }
+.wc-red    { stroke: var(--c-red); }
+.wc-green  { stroke: var(--c-green); }
+
+@keyframes flow { to { stroke-dashoffset: -26; } }
+
+.pk { filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.55)); }
+
+/* pieces fade in; the newest ones glow briefly */
+.piece {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.7s ease, visibility 0s linear 0.7s;
+}
+.piece.on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.7s ease, visibility 0s;
+}
+.piece.new { animation: glow 1.9s ease-out; }
+
+@keyframes glow {
+  0%   { filter: drop-shadow(0 0 0 rgba(255, 236, 160, 0)); }
+  30%  { filter: drop-shadow(0 0 9px rgba(255, 236, 160, 0.95)); }
+  100% { filter: drop-shadow(0 0 0 rgba(255, 236, 160, 0)); }
+}
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; padding: 10px 14px 28px; gap: 12px; }
+  .top { padding: 14px 14px 0; }
+
+  /* let the sidebar's children join the page grid so we can reorder them */
+  .side { display: contents; }
+  .steps    { order: 1; flex-direction: row; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x proximity; }
+  .controls { order: 2; }
+  .main     { order: 3; }
+  .legend   { order: 4; }
+
+  .step { flex: 0 0 auto; min-width: 190px; scroll-snap-align: start; }
+  .cap-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .wire { animation: none; }
+  .piece, .piece.on { transition: none; }
+  .piece.new { animation: none; }
+  .step { transition: none; }
+}
